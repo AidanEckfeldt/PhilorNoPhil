@@ -59,9 +59,9 @@ export async function POST(
       )
     }
 
-    if (!shares || typeof shares !== 'number' || shares < 1 || shares > 100) {
+    if (!shares || typeof shares !== 'number' || shares < 1) {
       return NextResponse.json(
-        { error: 'Shares must be between 1 and 100' },
+        { error: 'Shares must be at least 1' },
         { status: 400 }
       )
     }
