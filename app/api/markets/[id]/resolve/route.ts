@@ -107,7 +107,7 @@ export async function POST(
       })
 
       // Update user balances
-      for (const [userId, payout] of payouts.entries()) {
+      for (const [userId, payout] of Array.from(payouts.entries())) {
         await tx.user.update({
           where: { id: userId },
           data: {
