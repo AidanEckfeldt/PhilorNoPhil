@@ -4,16 +4,11 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-// Only create PrismaClient if DATABASE_URL is available
-const createPrismaClient = () => {
-  if (!process.env.DATABASE_URL) {
-    // Return a mock client during build if DATABASE_URL is not available
-    return null as any
-  }
-  return new PrismaClient()
-}
-
-export const prisma = globalForPrisma.prisma ?? createPrismaClient()
+// Initialize PrismaClient only if DATABASE_URL is set
+// This prevents build errors on Vercel when DATABASE_URL is not available during static generation
+export const prisma =
+  globalForPrisma.prisma ??
+  (process.env.DATABASE_URL ? new PrismaClient() : ({} as PrismaClient))
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
