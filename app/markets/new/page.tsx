@@ -47,6 +47,14 @@ export default function NewMarketPage() {
       const data = await response.json()
 
       if (!response.ok) {
+        // If user not found, they need to log in again (likely database was reset)
+        if (data.error === 'User not found' || response.status === 404) {
+          localStorage.removeItem('userId')
+          localStorage.removeItem('username')
+          alert('Your session expired. Please log in again.')
+          router.push('/')
+          return
+        }
         setError(data.error || 'Failed to create market')
         setLoading(false)
         return

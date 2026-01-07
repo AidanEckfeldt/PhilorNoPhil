@@ -38,7 +38,21 @@ export default function MarketsPage() {
       return
     }
 
-    fetchMarkets()
+    // Verify user still exists in database
+    fetch(`/api/users/${userId}`)
+      .then((res) => {
+        if (!res.ok) {
+          // User doesn't exist, clear localStorage and redirect
+          localStorage.removeItem('userId')
+          localStorage.removeItem('username')
+          router.push('/')
+        } else {
+          fetchMarkets()
+        }
+      })
+      .catch(() => {
+        fetchMarkets() // Continue anyway if check fails
+      })
   }, [activeTab, router])
 
   const fetchMarkets = async () => {
