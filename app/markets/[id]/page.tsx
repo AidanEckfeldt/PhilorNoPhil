@@ -250,37 +250,36 @@ export default function MarketDetailPage() {
   return (
     <>
       <Navbar />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <div className="flex items-start gap-4 mb-4">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
+          <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
             {market.emoji && (
-              <span className="text-5xl flex-shrink-0">{market.emoji}</span>
+              <span className="text-3xl sm:text-5xl flex-shrink-0">{market.emoji}</span>
             )}
-            <h1 className="text-3xl font-bold text-gray-900 flex-1">
+            <h1 className="text-xl sm:text-3xl font-bold text-gray-900 flex-1">
               {market.question}
             </h1>
           </div>
           {market.description && (
-            <p className="text-gray-600 mb-4">{market.description}</p>
+            <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">{market.description}</p>
           )}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">
             <span>Created by {market.creator.username}</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>
-              Created {new Date(market.createdAt).toLocaleDateString('en-US', {
-                month: 'long',
+              {new Date(market.createdAt).toLocaleDateString('en-US', {
+                month: 'short',
                 day: 'numeric',
                 year: 'numeric',
               })}
             </span>
             {market.resolveAt && market.status === 'OPEN' && (
               <>
-                <span>•</span>
-                <span className="text-accent font-medium">
-                  Expected resolve: {new Date(market.resolveAt).toLocaleDateString('en-US', {
-                    month: 'long',
+                <span className="hidden sm:inline">•</span>
+                <span className="text-accent font-medium w-full sm:w-auto mt-1 sm:mt-0">
+                  Ends: {new Date(market.resolveAt).toLocaleDateString('en-US', {
+                    month: 'short',
                     day: 'numeric',
-                    year: 'numeric',
                     hour: 'numeric',
                     minute: '2-digit',
                   })}
@@ -290,22 +289,22 @@ export default function MarketDetailPage() {
           </div>
 
           {market.status === 'OPEN' ? (
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <div className="border-2 border-green-200 rounded-lg p-4 bg-green-50">
-                <div className="text-sm text-gray-600 mb-2">YES</div>
-                <div className="text-3xl font-bold text-green-600 mb-2">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 mb-4 sm:mb-6">
+              <div className="border-2 border-green-200 rounded-lg p-3 sm:p-4 bg-green-50">
+                <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">YES</div>
+                <div className="text-2xl sm:text-3xl font-bold text-green-600 mb-1 sm:mb-2">
                   {(market.yesPrice * 100).toFixed(1)}%
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-xs sm:text-sm text-gray-500">
                   {market.totalYesShares} shares
                 </div>
               </div>
-              <div className="border-2 border-red-200 rounded-lg p-4 bg-red-50">
-                <div className="text-sm text-gray-600 mb-2">NO</div>
-                <div className="text-3xl font-bold text-red-600 mb-2">
+              <div className="border-2 border-red-200 rounded-lg p-3 sm:p-4 bg-red-50">
+                <div className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">NO</div>
+                <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-1 sm:mb-2">
                   {(market.noPrice * 100).toFixed(1)}%
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-xs sm:text-sm text-gray-500">
                   {market.totalNoShares} shares
                 </div>
               </div>
@@ -344,21 +343,21 @@ export default function MarketDetailPage() {
         </div>
 
         {market.status === 'OPEN' && (
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 className="text-xl font-semibold mb-4">Place a Trade</h2>
-            <div className="mb-4 text-sm text-gray-600">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Place a Trade</h2>
+            <div className="mb-3 sm:mb-4 text-xs sm:text-sm text-gray-600">
               Balance: <span className="font-semibold">{userBalance.toFixed(2)}</span> points
             </div>
             <form onSubmit={handleTrade}>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="mb-3 sm:mb-4">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                   Side
                 </label>
-                <div className="flex space-x-4">
+                <div className="flex space-x-3 sm:space-x-4">
                   <button
                     type="button"
                     onClick={() => setSide('YES')}
-                    className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-colors ${
+                    className={`flex-1 py-2.5 sm:py-2 px-3 sm:px-4 rounded-lg font-semibold text-sm sm:text-base transition-colors ${
                       side === 'YES'
                         ? 'bg-green-500 text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -369,7 +368,7 @@ export default function MarketDetailPage() {
                   <button
                     type="button"
                     onClick={() => setSide('NO')}
-                    className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-colors ${
+                    className={`flex-1 py-2.5 sm:py-2 px-3 sm:px-4 rounded-lg font-semibold text-sm sm:text-base transition-colors ${
                       side === 'NO'
                         ? 'bg-red-500 text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -379,10 +378,10 @@ export default function MarketDetailPage() {
                   </button>
                 </div>
               </div>
-              <div className="mb-4">
+              <div className="mb-3 sm:mb-4">
                 <label
                   htmlFor="shares"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-xs sm:text-sm font-medium text-gray-700 mb-2"
                 >
                   Shares (1-100)
                 </label>
@@ -412,32 +411,32 @@ export default function MarketDetailPage() {
                       setShares(Math.max(1, Math.min(100, numValue)))
                     }
                   }}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-base"
                   disabled={trading}
                 />
               </div>
-              <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                <div className="text-sm text-gray-600">
+              <div className="mb-3 sm:mb-4 p-3 bg-gray-50 rounded-lg">
+                <div className="text-xs sm:text-sm text-gray-600">
                   Price per share:{' '}
                   <span className="font-semibold">
                     {(side === 'YES' ? market.yesPrice : market.noPrice).toFixed(3)}
                   </span>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600">
                   Total cost:{' '}
                   <span className="font-semibold">{cost.toFixed(2)}</span> points
                 </div>
               </div>
               {error && (
-                <div className="mb-4 text-red-600 text-sm">{error}</div>
+                <div className="mb-3 sm:mb-4 text-red-600 text-xs sm:text-sm">{error}</div>
               )}
               {success && (
-                <div className="mb-4 text-green-600 text-sm">{success}</div>
+                <div className="mb-3 sm:mb-4 text-green-600 text-xs sm:text-sm">{success}</div>
               )}
               <button
                 type="submit"
                 disabled={trading || cost > userBalance || sharesNum < 1 || sharesNum > 100}
-                className="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+                className="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-2.5 sm:py-2 px-4 rounded-lg transition-colors disabled:opacity-50 text-sm sm:text-base"
               >
                 {trading ? 'Processing...' : 'Buy Shares'}
               </button>
@@ -446,26 +445,26 @@ export default function MarketDetailPage() {
         )}
 
         {canResolve && (
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">Resolve Market</h2>
-            <div className="flex space-x-4">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Resolve Market</h2>
+            <div className="flex space-x-3 sm:space-x-4">
               <button
                 onClick={() => handleResolve('YES')}
                 disabled={resolving}
-                className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+                className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 sm:py-2 px-3 sm:px-4 rounded-lg transition-colors disabled:opacity-50 text-sm sm:text-base"
               >
                 Resolve YES
               </button>
               <button
                 onClick={() => handleResolve('NO')}
                 disabled={resolving}
-                className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 sm:py-2 px-3 sm:px-4 rounded-lg transition-colors disabled:opacity-50 text-sm sm:text-base"
               >
                 Resolve NO
               </button>
             </div>
             {error && (
-              <div className="mt-4 text-red-600 text-sm">{error}</div>
+              <div className="mt-3 sm:mt-4 text-red-600 text-xs sm:text-sm">{error}</div>
             )}
           </div>
         )}

@@ -37,12 +37,25 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 relative">
-          <div className="flex space-x-1">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        {/* Mobile: stacked layout */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center py-2 md:h-16">
+          {/* Title - centered on mobile, absolute center on desktop */}
+          <div className="flex justify-center md:absolute md:left-1/2 md:transform md:-translate-x-1/2 mb-2 md:mb-0">
+            <Link
+              href="/markets"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-accent whitespace-nowrap"
+            >
+              Phil or No Phil
+            </Link>
+          </div>
+          
+          {/* Bottom row on mobile: nav + user */}
+          <div className="flex justify-between items-center w-full md:w-auto">
+            <div className="flex space-x-1">
               <Link
                 href="/markets"
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   isActive('/markets')
                     ? 'bg-accent text-white'
                     : 'text-gray-700 hover:bg-gray-100'
@@ -52,7 +65,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/leaderboard"
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   isActive('/leaderboard')
                     ? 'bg-accent text-white'
                     : 'text-gray-700 hover:bg-gray-100'
@@ -60,24 +73,19 @@ export default function Navbar() {
               >
                 Leaderboard
               </Link>
-          </div>
-          <Link
-            href="/markets"
-            className="absolute left-1/2 transform -translate-x-1/2 text-3xl md:text-4xl lg:text-5xl font-bold text-accent"
-          >
-            Phil or No Phil
-          </Link>
-          {username && (
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">{username}</span>
-              <button
-                onClick={handleLogout}
-                className="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
-              >
-                Logout
-              </button>
             </div>
-          )}
+            {username && (
+              <div className="flex items-center space-x-2 sm:space-x-4">
+                <span className="text-xs sm:text-sm text-gray-700 hidden sm:inline">{username}</span>
+                <button
+                  onClick={handleLogout}
+                  className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 px-2 sm:px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

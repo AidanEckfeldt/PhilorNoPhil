@@ -249,14 +249,14 @@ export default function InfoBanner() {
 
   return (
     <div className="bg-white border-b-2 border-gray-200 overflow-hidden relative shadow-sm">
-      <div className="relative h-10 flex items-center">
+      <div className="relative h-8 sm:h-10 flex items-center">
         {/* Scrolling ticker */}
         <div className="absolute inset-0 flex items-center">
-          <div className="flex items-center gap-8 animate-scroll">
+          <div className="flex items-center gap-4 sm:gap-8 animate-scroll">
             {tickerItems.map((item, index) => (
               <div
                 key={`${item.id}-${index}`}
-                className="flex items-center gap-2 text-sm font-medium text-gray-800 flex-shrink-0"
+                className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-gray-800 flex-shrink-0"
               >
                 {item.content}
                 <span className="text-gray-400">•</span>
@@ -265,8 +265,8 @@ export default function InfoBanner() {
           </div>
         </div>
         {/* Gradient fade on edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
       </div>
     </div>
   )

@@ -110,56 +110,58 @@ export default function MarketsPage() {
     <>
       <Navbar />
       <InfoBanner />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-          <div className="flex items-center gap-4 flex-1">
-            <h1 className="text-3xl font-bold text-gray-900">Markets</h1>
-            <div className="flex-1 max-w-md">
-              <input
-                type="text"
-                placeholder="Search markets..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-sm"
-              />
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 border border-gray-300 rounded-lg overflow-hidden">
-              <button
-                onClick={() => setSortBy('recent')}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
-                  sortBy === 'recent'
-                    ? 'bg-accent text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                Most Recent
-              </button>
-              <button
-                onClick={() => setSortBy('active')}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
-                  sortBy === 'active'
-                    ? 'bg-accent text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                Most Active
-              </button>
-            </div>
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+        {/* Header section - stacks on mobile */}
+        <div className="flex flex-col gap-3 sm:gap-4 mb-4 sm:mb-6">
+          {/* Title + Create button row */}
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Markets</h1>
             <Link
               href="/markets/new"
-              className="bg-accent hover:bg-accent-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+              className="bg-accent hover:bg-accent-dark text-white font-semibold py-1.5 sm:py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base"
             >
-              Create Market
+              + Create
             </Link>
+          </div>
+          
+          {/* Search bar - full width on mobile */}
+          <input
+            type="text"
+            placeholder="Search markets..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-sm"
+          />
+          
+          {/* Sort buttons - smaller on mobile */}
+          <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden self-start">
+            <button
+              onClick={() => setSortBy('recent')}
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors ${
+                sortBy === 'recent'
+                  ? 'bg-accent text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Recent
+            </button>
+            <button
+              onClick={() => setSortBy('active')}
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors ${
+                sortBy === 'active'
+                  ? 'bg-accent text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Active
+            </button>
           </div>
         </div>
 
-        <div className="flex space-x-1 mb-6 border-b border-gray-200">
+        <div className="flex space-x-1 mb-4 sm:mb-6 border-b border-gray-200">
           <button
             onClick={() => setActiveTab('OPEN')}
-            className={`px-4 py-2 font-medium text-sm transition-colors ${
+            className={`px-3 sm:px-4 py-2 font-medium text-xs sm:text-sm transition-colors ${
               activeTab === 'OPEN'
                 ? 'border-b-2 border-accent text-accent'
                 : 'text-gray-600 hover:text-gray-900'
@@ -169,7 +171,7 @@ export default function MarketsPage() {
           </button>
           <button
             onClick={() => setActiveTab('RESOLVED')}
-            className={`px-4 py-2 font-medium text-sm transition-colors ${
+            className={`px-3 sm:px-4 py-2 font-medium text-xs sm:text-sm transition-colors ${
               activeTab === 'RESOLVED'
                 ? 'border-b-2 border-accent text-accent'
                 : 'text-gray-600 hover:text-gray-900'
@@ -180,59 +182,55 @@ export default function MarketsPage() {
         </div>
 
         {filteredMarkets.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-8 sm:py-12 text-gray-500 text-sm sm:text-base">
             {searchQuery
               ? `No ${activeTab.toLowerCase()} markets found matching "${searchQuery}".`
               : `No ${activeTab.toLowerCase()} markets yet.`}
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {filteredMarkets.map((market) => (
               <Link
                 key={market.id}
                 href={`/markets/${market.id}`}
-                className="bg-white rounded-lg shadow-md border-2 border-gray-900 p-6 hover:shadow-lg transition-shadow"
+                className="bg-white rounded-lg shadow-md border-2 border-gray-900 p-4 sm:p-6 hover:shadow-lg transition-all active:scale-[0.98]"
               >
-                <div className="flex items-start gap-3 mb-2">
+                <div className="flex items-start gap-2 sm:gap-3 mb-2">
                   {market.emoji && (
-                    <span className="text-3xl flex-shrink-0">{market.emoji}</span>
+                    <span className="text-2xl sm:text-3xl flex-shrink-0">{market.emoji}</span>
                   )}
-                  <h2 className="text-xl font-semibold text-gray-900 flex-1">
+                  <h2 className="text-base sm:text-xl font-semibold text-gray-900 flex-1 line-clamp-2">
                     {market.question}
                   </h2>
                 </div>
                 {market.description && (
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
                     {market.description}
                   </p>
                 )}
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm text-gray-500">
-                    {market.creator.username}
-                  </span>
-                  <span className="text-sm text-gray-500">
-                    {formatDate(market.createdAt)}
-                  </span>
+                <div className="flex justify-between items-center mb-2 text-xs sm:text-sm text-gray-500">
+                  <span>{market.creator.username}</span>
+                  <span>{formatDate(market.createdAt)}</span>
                 </div>
                 {market.status === 'OPEN' ? (
-                  <div className="flex space-x-4 mt-4">
+                  <div className="flex space-x-4 mt-3 sm:mt-4">
                     <div className="flex-1">
-                      <div className="text-xs text-gray-500 mb-1">YES</div>
-                      <div className="text-lg font-bold text-green-600">
+                      <div className="text-xs text-gray-500 mb-0.5 sm:mb-1">YES</div>
+                      <div className="text-base sm:text-lg font-bold text-green-600">
                         {(market.yesPrice * 100).toFixed(1)}%
                       </div>
                     </div>
                     <div className="flex-1">
-                      <div className="text-xs text-gray-500 mb-1">NO</div>
-                      <div className="text-lg font-bold text-red-600">
+                      <div className="text-xs text-gray-500 mb-0.5 sm:mb-1">NO</div>
+                      <div className="text-base sm:text-lg font-bold text-red-600">
                         {(market.noPrice * 100).toFixed(1)}%
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="mt-4">
+                  <div className="mt-3 sm:mt-4">
                     <span
-                      className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                      className={`inline-block px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold ${
                         market.resolution === 'YES'
                           ? 'bg-green-100 text-green-800'
                           : 'bg-red-100 text-red-800'
