@@ -62,12 +62,11 @@ export async function POST(
       )
     }
 
-    const isCreator = market.creatorId === userId
     const isAdmin = user.isAdmin
 
-    if (!isCreator && !isAdmin) {
+    if (!isAdmin) {
       return NextResponse.json(
-        { error: 'Only market creator or admin can resolve' },
+        { error: 'Only admins can resolve markets' },
         { status: 403 }
       )
     }

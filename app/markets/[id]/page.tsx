@@ -243,8 +243,7 @@ export default function MarketDetailPage() {
     )
   }
 
-  const currentUserId = localStorage.getItem('userId')
-  const canResolve = market.status === 'OPEN' && (market.creator.id === currentUserId || isAdmin)
+  const canResolve = market.status === 'OPEN' && isAdmin
   const sharesNum = typeof shares === 'number' ? shares : parseInt(sharesInput) || 0
   const cost = (side === 'YES' ? market.yesPrice : market.noPrice) * (sharesNum || 0)
 

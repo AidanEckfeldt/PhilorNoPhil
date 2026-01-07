@@ -190,6 +190,44 @@ export default function InfoBanner() {
         })
       }
 
+      // Fallback items when there is no data yet
+      if (newItems.length === 0) {
+        newItems.push(
+          {
+            id: 'welcome',
+            color: 'blue',
+            content: (
+              <span className="flex items-center gap-2 whitespace-nowrap">
+                <span className="text-blue-600 font-bold">🎉</span>
+                <span className="text-gray-700">Welcome to Phil or No Phil</span>
+              </span>
+            ),
+          },
+          {
+            id: 'create-market',
+            color: 'green',
+            content: (
+              <span className="flex items-center gap-2 whitespace-nowrap">
+                <span className="text-green-600 font-bold">➕</span>
+                <Link href="/markets/new" className="text-blue-600 hover:underline font-semibold">
+                  Create your first market
+                </Link>
+              </span>
+            ),
+          },
+          {
+            id: 'place-trade',
+            color: 'yellow',
+            content: (
+              <span className="flex items-center gap-2 whitespace-nowrap">
+                <span className="text-yellow-600 font-bold">⚡</span>
+                <span className="text-gray-700">Place a trade to light up the ticker</span>
+              </span>
+            ),
+          }
+        )
+      }
+
       // Duplicate items for seamless loop
       setTickerItems([...newItems, ...newItems, ...newItems])
     }
