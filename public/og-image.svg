@@ -6,8 +6,6 @@
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#grad)"/>
-  <text x="600" y="280" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">Phil or No Phil</text>
-  <text x="600" y="360" font-family="Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.9)" text-anchor="middle">Prediction Market Platform</text>
-  <text x="600" y="420" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.8)" text-anchor="middle">Create markets • Trade shares • Win points</text>
+  <text x="600" y="350" font-size="400" text-anchor="middle" dominant-baseline="central">🅿️</text>
 </svg>
 
