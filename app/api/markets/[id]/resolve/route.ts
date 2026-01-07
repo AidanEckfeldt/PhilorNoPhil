@@ -95,7 +95,7 @@ export async function POST(
     }
 
     // Update market and user balances in a transaction
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       // Update market
       await tx.market.update({
         where: { id: params.id },

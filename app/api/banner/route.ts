@@ -3,6 +3,18 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
   try {
+    // Check if DATABASE_URL is available
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json({
+        lastTrade: null,
+        soonestMarket: null,
+        mostPopular: null,
+        topUser: null,
+        lastUser: null,
+        highestVolume: null,
+      })
+    }
+
     // Get last trade
     const lastTrade = await prisma.trade.findFirst({
       orderBy: {
@@ -111,7 +123,7 @@ export async function GET(request: NextRequest) {
     let highestVolumeTotal = 0
     if (highestVolume) {
       highestVolumeTotal = highestVolume.trades.reduce(
-        (sum, trade) => sum + trade.shares,
+        (sum: number, trade: { shares: number }) => sum + trade.shares,
         0
       )
     }

@@ -33,11 +33,11 @@ export async function GET(
 
     // Calculate total shares
     const totalYesShares = market.trades
-      .filter((t) => t.side === 'YES')
-      .reduce((sum, t) => sum + t.shares, 0)
+      .filter((t: any) => t.side === 'YES')
+      .reduce((sum: number, t: any) => sum + t.shares, 0)
     const totalNoShares = market.trades
-      .filter((t) => t.side === 'NO')
-      .reduce((sum, t) => sum + t.shares, 0)
+      .filter((t: any) => t.side === 'NO')
+      .reduce((sum: number, t: any) => sum + t.shares, 0)
 
     return NextResponse.json({
       ...market,

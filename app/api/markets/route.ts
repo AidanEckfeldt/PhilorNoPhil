@@ -37,9 +37,9 @@ export async function GET(request: NextRequest) {
     })
 
     // Add totalShares to each market for sorting
-    const marketsWithShares = markets.map((market) => ({
+    const marketsWithShares = markets.map((market: any) => ({
       ...market,
-      totalShares: market.trades.reduce((sum, trade) => sum + trade.shares, 0),
+      totalShares: market.trades.reduce((sum: number, trade: any) => sum + trade.shares, 0),
     }))
 
     return NextResponse.json(marketsWithShares)

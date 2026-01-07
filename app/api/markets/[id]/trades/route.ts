@@ -11,11 +11,11 @@ async function recalculatePrices(marketId: string) {
   })
 
   const totalYesShares = trades
-    .filter((t) => t.side === 'YES')
-    .reduce((sum, t) => sum + t.shares, 0)
+    .filter((t: any) => t.side === 'YES')
+    .reduce((sum: number, t: any) => sum + t.shares, 0)
   const totalNoShares = trades
-    .filter((t) => t.side === 'NO')
-    .reduce((sum, t) => sum + t.shares, 0)
+    .filter((t: any) => t.side === 'NO')
+    .reduce((sum: number, t: any) => sum + t.shares, 0)
 
   let yesPrice = 0.5
   let noPrice = 0.5
@@ -110,7 +110,7 @@ export async function POST(
     }
 
     // Create trade and update balance
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.trade.create({
         data: {
           userId,
