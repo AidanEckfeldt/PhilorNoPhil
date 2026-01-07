@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String?
+  balance   Float    @default(1000)
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  markets   Market[] @relation("UserMarkets")
+  trades    Trade[]
+}
+
+model Market {
+  id          String       @id @default(cuid())
+  question    String
+  description String?
+  emoji       String?
+  creator     User         @relation("UserMarkets", fields: [creatorId], references: [id])
+  creatorId   String
+  status      MarketStatus @default(OPEN)
+  resolution  Resolution?
+  yesPrice    Float        @default(0.5)
+  noPrice     Float        @default(0.5)
+  createdAt   DateTime     @default(now())
+  resolveAt   DateTime?
+  trades      Trade[]
+}
+
+model Trade {
+  id        String    @id @default(cuid())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  market    Market    @relation(fields: [marketId], references: [id])
+  marketId  String
+  side      TradeSide
+  shares    Int
+  price     Float
+  createdAt DateTime  @default(now())
+}
+
+enum MarketStatus {
+  OPEN
+  RESOLVED
+}
+
+enum Resolution {
+  YES
+  NO
+}
+
+enum TradeSide {
+  YES
+  NO
+}
+
